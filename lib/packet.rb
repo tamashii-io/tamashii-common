@@ -24,7 +24,7 @@ module Codeme
     end
 
     def dump
-      self.class.dump(type, body)
+      self.class.dump(self)
     end
   end
 end
