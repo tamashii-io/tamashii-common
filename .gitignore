@@ -1,6 +1,15 @@
 # Vim related
+/.bundle/
 *.swp
+/.yardoc
 *.swo
+/Gemfile.lock
 
+/_yardoc/
 .byebug_history
+/coverage/
 .ruby-version
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
