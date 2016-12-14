@@ -47,5 +47,13 @@ module Codeme
     def dump
       self.class.dump(self)
     end
+
+    def type_code
+      @type >> 3 & 0x7
+    end
+
+    def action_code
+      @type & 0x7
+    end
   end
 end
