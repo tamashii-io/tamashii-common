@@ -1,26 +1,46 @@
 module Codeme
   class Packet
     attr_reader :type
+    attr_reader :tag
     attr_reader :body
     
     # 1 byte: type
+    # 2 bytes: tag
     # 2 bytes: size of body
     # variable-length body, in string
     def self.dump(obj)
       raise "Only Packet can be dump" unless obj.is_a?(self)
-      header = [obj.type, obj.body.size].pack("Cn")
-      header + obj.body
+      raise "Body must be a string" unless obj.body.is_a?(String)
+      header = [obj.type, *split_integer(obj.tag), *split_integer(obj.body.size)]
+      header + obj.body.unpack("C*")
     end
 
-    def self.load(orig_str)
-      str = orig_str.clone
-      header = str.slice!(0..2).unpack("Cn")
-      # str is the body now
-      new(header[0], str)
+    def self.split_integer(n, byte_num = 2)
+      res = []
+      byte_num.times do 
+        res.unshift(n & 0xFF)
+        n >>= 8
+      end
+      res
+    end
+
+    def self.combine_integer(bytes)
+      n = 0
+      bytes.each do |byte|
+        n = n << 8 | byte
+      end
+      n
+    end
+
+    def self.load(byte_array)
+      header_bytes = byte_array[0..4]
+      body_bytes = byte_array[5..-1]
+      new(header_bytes[0], combine_integer(header_bytes[1..2]), body_bytes.pack("C*"))
     end
     
-    def initialize(type, body)
+    def initialize(type, tag = 0, body = '')
       @type = type
+      @tag =  tag
       @body = body
     end
 
