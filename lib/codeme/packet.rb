@@ -12,7 +12,8 @@ module Codeme
       header + obj.body
     end
 
-    def self.load(str)
+    def self.load(orig_str)
+      str = orig_str.clone
       header = str.slice!(0..2).unpack("Cn")
       # str is the body now
       new(header[0], str)
