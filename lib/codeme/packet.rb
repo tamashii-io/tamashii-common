@@ -1,5 +1,17 @@
 module Codeme
   class Packet
+
+    TYPE_CODE_SYSTEM = 0 << 3
+    TYPE_CODE_AUTH = 1 << 3
+    TYPE_CODE_RFID = 2 << 3
+    TYPE_CODE_BUZZER = 3 << 3
+
+    ACTION_CODE_AUTH_TOKEN = 0
+    ACTION_CODE_AUTH_RESULT = 7
+
+    DEVICE_TYPE_AGENT = 0
+    DEVICE_TYPE_CHECKIN = 1
+
     attr_reader :type
     attr_reader :tag
     attr_reader :body
@@ -49,6 +61,15 @@ module Codeme
       @type = type
       @tag =  tag
       @body = body
+      body_conversion
+    end
+
+    def body_conversion
+      if @body.is_a? TrueClass
+        @body = "0"
+      elsif @body.is_a? FalseClass
+        @body = "1"
+      end
     end
 
     def dump
@@ -56,7 +77,7 @@ module Codeme
     end
 
     def type_code
-      @type >> 3 & 0x7
+      @type & (0x7 << 3)
     end
 
     def action_code
