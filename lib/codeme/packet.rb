@@ -1,13 +1,6 @@
 module Codeme
   class Packet
 
-    TYPE_CODE_SYSTEM = 0 << 3
-    TYPE_CODE_AUTH = 1 << 3
-    TYPE_CODE_RFID = 2 << 3
-    TYPE_CODE_BUZZER = 3 << 3
-
-    ACTION_CODE_AUTH_TOKEN = 0
-    ACTION_CODE_AUTH_RESULT = 7
 
     DEVICE_TYPE_AGENT = 0
     DEVICE_TYPE_CHECKIN = 1

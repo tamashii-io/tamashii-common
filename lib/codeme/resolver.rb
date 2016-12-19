@@ -6,7 +6,7 @@ module  Codeme
     def initialize(env = {})
       @env = {}           
     end
-    
+
     def resolve(action_code, data = nil)
       puts "Not yet implemented"
     end
@@ -14,11 +14,14 @@ module  Codeme
 end
 
 module Codeme
-  TYPE_SYSTEM = 0
-  TYPE_AUTH = 1
-  TYPE_RFID = 3
-  TYPE_BUZZER = 4
 
+  TYPE_CODE_SYSTEM = 0 << 3
+  TYPE_CODE_AUTH = 1 << 3
+  TYPE_CODE_RFID = 2 << 3
+  TYPE_CODE_BUZZER = 3 << 3
+
+  ACTION_CODE_AUTH_TOKEN = 0
+  ACTION_CODE_AUTH_RESULT = 7
   module Resolver
     module_function
 
