@@ -33,9 +33,16 @@ module Codeme
     end
 
     def self.load(byte_array)
-      header_bytes = byte_array[0..4]
-      body_bytes = byte_array[5..-1]
-      new(header_bytes[0], combine_integer(header_bytes[1..2]), body_bytes.pack("C*"))
+      header_bytes = byte_array[0..4] 
+      body_bytes = byte_array[5..-1] || ""
+      packed_data = if body_bytes.is_a? String
+                      body_bytes
+                    else
+                      body_bytes.pack("C*")
+                    end
+      new(header_bytes[0], combine_integer(header_bytes[1..2]), packed_data)
+    rescue
+      nil
     end
     
     def initialize(type, tag = 0, body = '')
