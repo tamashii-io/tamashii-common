@@ -38,12 +38,14 @@ module Codeme
   module Resolver
     module_function
 
-    def config(&block)
+    def config(env = {}, &block)
       @handlers = {}
+      @env = env
       class_eval(&block)
+      @env = nil # do not remember it
     end
 
-    def handler(type_code, handler_class, env = {})
+    def handler(type_code, handler_class, env = @env)
       @handlers[type_code] = {class: handler_class, env: env}
     end
 
