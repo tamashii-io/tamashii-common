@@ -2,7 +2,9 @@ require 'codeme/packet'
 
 module  Codeme
   class Handler
-    def initialize(env = {})
+    attr_reader :type_code, :env
+    def initialize(type_code, env = {})
+      @type_code = type_code
       @env = env          
     end
 
@@ -47,7 +49,7 @@ module Codeme
 
     def resolve(pkt)
       data = @handlers[pkt.type_code] || {class: Handler, env: {}}
-      data[:class].new(data[:env]).resolve(pkt.action_code, pkt.body)
+      data[:class].new(pkt.type_code, data[:env]).resolve(pkt.action_code, pkt.body)
     end
 
     def handle?(type_code)
