@@ -16,7 +16,7 @@ module Codeme
       end
 
       def codeme_packet(type, tag, body)
-        Codeme::Packet.new(type, tag, packet).dump
+        Codeme::Packet.new(type, tag, body).dump
       end
 
       def codeme_binary_packet(type, tag, body)
