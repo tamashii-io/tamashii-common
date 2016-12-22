@@ -42,4 +42,10 @@ RSpec.describe Codeme::Config do
     expect(subject.auth_type).to be true
   end
 
+  it "support class level instance" do
+    Codeme::Config.register(:apple)
+    expect(subject.accept?(:apple)).to be true
+    Codeme::Config.reset_default!
+  end
+
 end
