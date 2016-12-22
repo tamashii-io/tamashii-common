@@ -4,23 +4,21 @@ RSpec.describe Codeme::Logger do
 
   LOGGER_FORMAT = /\[[0-9\-\:\s]+\]\s(INFO|DEBUG|WARN|ERROR|FATAL)\t:(.+?)\n/
 
-  subject { Codeme::Logger }
+  let(:path) { STDOUT }
+  subject { described_class.new(path) }
 
-  it "has alias method" do
-    expect(subject).to receive(:info).with("Hello World")
-    subject.info("Hello World")
-  end
+  context "defined path" do
+    let(:log_file) { Tempfile.new }
+    let(:path) { log_file.path }
+    after { log_file.close }
 
-  it "print formatted message" do
-    log_file = Tempfile.new
-    logger = subject.new(log_file.path)
-    logger.info("Hello World")
-    expect(log_file.read).to match(LOGGER_FORMAT)
-    log_file.close
-  end
+    it "print formatted message" do
+      subject.info("Hello World")
+      expect(log_file.read).to match(LOGGER_FORMAT)
+    end
 
-  it "has default schema" do
-    logger = subject.new(Tempfile.new)
-    expect(logger.schema).to eq(subject::Colors::SCHEMA[STDOUT])
+    it "has default schema" do
+      expect(subject.schema).to eq(Codeme::Logger::Colors::SCHEMA[STDOUT])
+    end
   end
 end

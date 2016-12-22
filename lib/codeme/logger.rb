@@ -27,12 +27,6 @@ module Codeme
       }
     end
 
-    class << self
-      def method_missing(method, *args, &block)
-        Manager.logger.send(method, *args, &block)
-      end
-    end
-
     alias format_message_colorless format_message
 
     def initialize(*args)
