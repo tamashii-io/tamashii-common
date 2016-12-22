@@ -7,18 +7,20 @@ module Codeme
         (@instance ||= Config.new).send(name, *args, &block)
       end
 
+      def inherited(base)
+        base.class_variable_set(:@@accept_config, {})
+      end
+
       def register(name, default = nil)
-        @accept_config ||= {}
-        @accept_config[name.to_sym] = default
+        accept_config = self.class_variables_get(:@@accept_config) || {}
+        accept_config[name.to_sym] = default
+        self.class_variable_set(:@@accept_config, accept_config)
       end
 
       def load_default
-        return {} if @accept_config.nil?
-        @accept_config
-      end
-
-      def reset_default!
-        @accept_config = {}
+        self.class_variable_get(:@@accept_config)
+      rescue NameError
+        {}
       end
     end
 
