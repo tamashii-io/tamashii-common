@@ -6,7 +6,7 @@ module Codeme
       attr_accessor :default_config
 
       def method_missing(name, *args, &block)
-        (@instance ||= Config.new).send(name, *args, &block)
+        (@instance ||= self.new).send(name, *args, &block)
       end
 
       def register(name, default = nil)
