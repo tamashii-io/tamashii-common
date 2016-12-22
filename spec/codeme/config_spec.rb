@@ -43,9 +43,19 @@ RSpec.describe Codeme::Config do
   end
 
   it "support class level instance" do
-    Codeme::Config.register(:apple)
-    expect(subject.accept?(:apple)).to be true
-    Codeme::Config.reset_default!
+    klass = Class.new(Codeme::Config) do
+      register :apple, true
+    end
+    expect(klass.new.accept?(:apple)).to be true
+  end
+
+  it "support class level accessor" do
+    klass = Class.new(Codeme::Config) do
+      register :shared, true
+    end
+    expect(klass[:shared]).to be true
+    klass[:shared] = false
+    expect(klass[:shared]).to be false
   end
 
 end
