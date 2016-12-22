@@ -3,6 +3,7 @@ require "codeme/packet"
 require "codeme/resolver"
 require "codeme/logger"
 require "codeme/config"
+require "codeme/environment"
 
 module Codeme
   module Common

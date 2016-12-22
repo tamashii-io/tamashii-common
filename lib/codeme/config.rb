@@ -1,3 +1,5 @@
+require "codeme/environment"
+
 module Codeme
   class Config < Hash
     SHARED_CONFIG = %i(auth_type token log_file log_level token env).freeze
@@ -39,6 +41,15 @@ module Codeme
 
     def accept?(key)
       @accept_config.include?(key.to_sym)
+    end
+
+    def env(env = nil)
+      return Enviromnent.new(self[:env]) if env.nil?
+      self[:env] = env.to_s
+    end
+
+    def env=(env)
+      self[:env] = env.to_s
     end
   end
 end

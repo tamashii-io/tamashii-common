@@ -58,4 +58,15 @@ RSpec.describe Codeme::Config do
     expect(klass[:shared]).to be false
   end
 
+  describe "#env" do
+    it "has development as default environment" do
+      expect(subject.env.development?).to be true
+    end
+
+    it "can set environment" do
+      subject.env = "production"
+      expect(subject.env.production?).to be true
+    end
+  end
+
 end
