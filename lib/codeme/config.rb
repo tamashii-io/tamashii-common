@@ -24,7 +24,7 @@ module Codeme
 
     def initialize
       @accept_config = Set.new(SHARED_CONFIG)
-      Config.load_default.each { |name, value| register(name, value) }
+      self.class.load_default.each { |name, value| register(name, value) }
     end
 
     def method_missing(name, *args, &block)
