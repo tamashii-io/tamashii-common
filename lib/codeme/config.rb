@@ -6,7 +6,6 @@ module Codeme
       attr_accessor :default_config
 
       def method_missing(name, *args, &block)
-        p name
         (@instance ||= self.new).send(name, *args, &block)
       end
 
