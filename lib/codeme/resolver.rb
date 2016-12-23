@@ -9,7 +9,7 @@ module Codeme
     end
 
     def handle(type_code, handler_class, options = {})
-      raise NotImplementError.new("Handler should implement resolve method") if handler_class.method_defined?(:resolve)
+      raise NotImplementedError.new("Handler should implement resolve method") if handler_class.method_defined?(:resolve)
       @handlers ||= {}
       @handlers[type_code] = [handler_class, options]
     end
