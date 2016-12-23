@@ -42,6 +42,17 @@ RSpec.describe Codeme::Logger do
       subject.send(severity, "Hello World")
       expect(log_file.read).to match(/#{severity.upcase}/)
     end
+
+    it "has no filter default" do
+      subject.send(severity, "TOKEN: %{token}", token: SecureRandom.hex(8))
+      expect(log_file.read).to match(/TOKEN: \w/)
+    end
+
+    it "can filter params" do
+      subject.enable_filter = true
+      subject.send(severity, "TOKEN: %{token}", token: SecureRandom.hex(8))
+      expect(log_file.read).to match(/TOKEN: FILTERED/)
+    end
   end
 
   it "has default schema" do

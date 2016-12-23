@@ -27,10 +27,15 @@ module Codeme
       }
     end
 
+    attr_accessor :enable_filter
+
+    FILTER_PARAMS = %i(token password)
+
     alias format_message_colorless format_message
 
     def initialize(*args)
       super
+      @enable_filter = false
       self.formatter = proc do |severity, datetime, progname, message|
         severity = "UNKNOWN" if severity == "ANY"
         datetime = datetime.strftime("%Y-%m-%d %H:%M:%S")
@@ -58,6 +63,7 @@ module Codeme
     end
 
     def filter(progname = nil, **options, &block)
+      FILTER_PARAMS.each { |param| options[param] = "FILTERED" if options.include?(param) } if @enable_filter
       if block_given?
         yield
       else
