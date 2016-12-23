@@ -17,7 +17,7 @@ module Codeme
     def resolve(pkt, env = {})
       @handlers ||= {}
       handler, options = @handlers[pkt.type_code] || [nil, nil]
-      handler.new(pkt.type_code, options.merge(env)).resolve(pkt.action_code, pkt.body)
+      handler.new(pkt.type_code, options.merge(env)).resolve(pkt.action_code, pkt.body) if handler
     end
 
     def handle?(type_code)
