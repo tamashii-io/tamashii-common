@@ -1,8 +1,8 @@
 module  Codeme
   class Handler
     attr_reader :type_code, :env
-    def initialize(type_code, env = {})
-      @type_code = type_code
+    def initialize(type, env = {})
+      @type = type
       @env = env
     end
 
