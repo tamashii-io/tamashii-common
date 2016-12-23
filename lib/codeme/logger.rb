@@ -32,8 +32,10 @@ module Codeme
     def initialize(*args)
       super
       self.formatter = proc do |severity, datetime, progname, message|
+        severity = "UNKNOWN" if severity == "ANY"
         datetime = datetime.strftime("%Y-%m-%d %H:%M:%S")
-        "[#{datetime}] #{severity}\t: #{message}\n"
+        progname = " -- #{progname}" if progname
+        "[#{datetime}] #{severity}#{progname}\t: #{message}\n"
       end
     end
 
@@ -54,5 +56,25 @@ module Codeme
     def schema
       Logger::Colors::SCHEMA[@logdev.dev] || Logger::Colors::SCHEMA[STDOUT]
     end
+
+    def filter(progname = nil, **options, &block)
+      if block_given?
+        yield
+      else
+        progname
+      end % options
+    end
+
+    def info(progname = nil, **options, &block)
+      severity = ::Logger.const_get(__callee__.upcase)
+      _progname = block_given? ? progname : nil
+      add(severity, filter(progname, **options, &block), _progname)
+    end
+
+    alias debug info
+    alias error info
+    alias warn info
+    alias fatal info
+    alias unknown info
   end
 end
