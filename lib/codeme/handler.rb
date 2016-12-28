@@ -1,12 +1,12 @@
 module  Codeme
   class Handler
-    attr_reader :type_code, :env
-    def initialize(type_code, env = {})
-      @type_code = type_code
+    attr_reader :type, :env
+    def initialize(type, env = {})
+      @type = type
       @env = env
     end
 
-    def resolve(action_code, data = nil)
+    def resolve(data = nil)
       raise NotImplementedError.new("The resolve method should be implemented.")
     end
   end
