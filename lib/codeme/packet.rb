@@ -14,8 +14,8 @@ module Codeme
     # 2 bytes: size of body
     # variable-length body, in string
     def self.dump(obj)
-      raise "Only Packet can be dump" unless obj.is_a?(self)
-      raise "Body must be a string" unless obj.body.is_a?(String)
+      raise TypeError.new("Only Packet can be dump") unless obj.is_a?(self)
+      raise TypeError.new("Body must be a string") unless obj.body.is_a?(String)
       header = [obj.type, *split_integer(obj.tag), *split_integer(obj.body.size)]
       header + obj.body.unpack("C*")
     end
