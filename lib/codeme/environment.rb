@@ -4,7 +4,7 @@ module Codeme
     RUNTIME_ENV = %w(test development production)
 
     def initialize(env = nil, **options)
-      self.merge(options)
+      self.merge!(options)
       self[:env] = env.to_s unless env.nil?
     end
 
