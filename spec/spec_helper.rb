@@ -1,4 +1,6 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require 'tempfile'
+require 'securerandom'
 require 'simplecov'
 
 SimpleCov.start do
