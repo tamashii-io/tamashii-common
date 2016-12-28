@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Codeme::Enviromnent do
+RSpec.describe Codeme::Environment do
   let(:env) { nil }
   let(:options) { {} }
   subject { described_class.new(env, options) }
@@ -24,7 +24,7 @@ RSpec.describe Codeme::Enviromnent do
 
   context "production environment" do
     let(:env) { "production" }
-    it "can change environement" do
+    it "can change environment" do
       expect(subject.production?).to be true
     end
   end

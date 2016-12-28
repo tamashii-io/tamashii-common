@@ -44,7 +44,7 @@ module Codeme
     end
 
     def env(env = nil)
-      return Enviromnent.new(self[:env]) if env.nil?
+      return Environment.new(self[:env]) if env.nil?
       self[:env] = env.to_s
     end
 

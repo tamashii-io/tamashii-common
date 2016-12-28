@@ -1,5 +1,5 @@
 module Codeme
-  class Enviromnent < Hash
+  class Environment < Hash
 
     RUNTIME_ENV = %w(test development production)
 
