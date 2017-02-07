@@ -25,8 +25,8 @@ module Codeme
       instance_eval(&block)
     end
 
-    def default_handler(handler_class = nil, env = nil)
-      return @default_handler || [nil, nil] if handler_class.nil?
+    def default_handler(handler_class = nil, env = {})
+      return @default_handler || [nil, {}] if handler_class.nil?
       @default_handler = [handler_class, env]
     end
 
