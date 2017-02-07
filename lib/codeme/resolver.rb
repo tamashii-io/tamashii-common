@@ -17,6 +17,9 @@ module Codeme
       @handlers ||= {}
     end
 
+    def hooks
+      @hooks ||= []
+    end
 
     def config(&block)
       instance_eval(&block)
@@ -32,7 +35,19 @@ module Codeme
       handlers[type] = [handler_class, options]
     end
 
+    def hook(callback, env = {})
+      raise NotImplementedError.new("Hook should implement call method") unless callback.respond_to?(:call)
+      hooks << [callback, env]
+    end
+
     def resolve(pkt, env = {})
+      hooks.each do  |hook_data|
+        callback, hook_env = hook_data
+        if callback.call(pkt, hook_env.merge(env))
+          # terminates the procedure
+          return
+        end
+      end
       handler, options = handlers[pkt.type] || @default_handler
       handler.new(pkt.type, options.merge(env)).resolve(pkt.body) if handler
     end

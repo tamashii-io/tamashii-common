@@ -51,6 +51,14 @@ RSpec.describe Codeme::Resolver do
     end
   end
   
+  describe "#hook" do
+    context "given callback does not implement call" do
+      it do
+        expect{subject.hook(NilClass, {})}.to raise_error(NotImplementedError)
+      end
+    end
+  end
+  
   describe "#default_handler" do
     let(:extra_env) { {foo: "bar"} }
     it "use default handler if no handler set" do
@@ -71,6 +79,55 @@ RSpec.describe Codeme::Resolver do
     it "resolve a packet that match the type" do
       subject.handle(type, handler_class)
       expect(subject.resolve(packet_obj, resolve_env)).to eq [packet_obj.body, default_env.merge(resolve_env)]
+    end
+
+    context "when hooks does not stop procedure" do
+      let(:hook1){ proc {|pkt, env| false } }
+      let(:hook2){ proc {|pkt, env| false } }
+      let(:hook3){ proc {|pkt, env| false } }
+
+      before do
+        subject.hook(hook1)
+        subject.hook(hook2)
+        subject.hook(hook3)
+        subject.handle(type, handler_class)
+      end
+
+      it "should call all hooks" do
+        expect(hook1).to receive(:call).and_return(false)
+        expect(hook2).to receive(:call).and_return(false)
+        expect(hook3).to receive(:call)
+        subject.resolve(packet_obj, resolve_env)
+      end
+
+      it "should call handlers" do
+        expect_any_instance_of(handler_class).to receive(:resolve)
+        subject.resolve(packet_obj, resolve_env)
+      end
+    end
+
+    context "when some hook stops the procedure" do
+      let(:hook1){ proc {|pkt, env| false } }
+      let(:hook2){ proc {|pkt, env| true } }
+      let(:hook3){ proc {|pkt, env| false } }
+
+      before do
+        subject.hook(hook1)
+        subject.hook(hook2)
+        subject.hook(hook3)
+        subject.handle(type, handler_class)
+      end
+      it "only calls hooks before that one" do
+        expect(hook1).to receive(:call).and_return(false)
+        expect(hook2).to receive(:call).and_return(true)
+        expect(hook3).not_to receive(:call)
+        subject.resolve(packet_obj, resolve_env)
+      end
+
+      it "does not call handler#resolve" do
+        expect_any_instance_of(handler_class).not_to receive(:resolve)
+        subject.resolve(packet_obj, resolve_env)
+      end
     end
   end
 end
