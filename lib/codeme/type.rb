@@ -1,5 +1,11 @@
 module Codeme
   module Type
+    # Client Type
+    CLIENT = {
+      agent: 0,
+      checkin: 1,
+    }
+
     # System Action
     POWEROFF = 000
     REBOOT = 001
