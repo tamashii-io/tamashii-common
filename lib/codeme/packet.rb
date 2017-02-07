@@ -5,10 +5,14 @@ module Codeme
     DEVICE_TYPE_AGENT = 0
     DEVICE_TYPE_CHECKIN = 1
 
+    STRING_TRUE = "0".freeze
+    STRING_FALSE = "1".freeze
+
     attr_reader :type
     attr_reader :tag
     attr_reader :body
     
+
     # 1 byte: type
     # 2 bytes: tag
     # 2 bytes: size of body
@@ -59,9 +63,9 @@ module Codeme
 
     def body_conversion
       if @body.is_a? TrueClass
-        @body = "0"
+        @body = STRING_TRUE.clone
       elsif @body.is_a? FalseClass
-        @body = "1"
+        @body = STRING_FALSE.clone
       end
     end
 
