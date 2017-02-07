@@ -13,6 +13,10 @@ module Codeme
       end
     end
 
+    def handlers
+      @handlers ||= {}
+    end
+
 
     def config(&block)
       instance_eval(&block)
@@ -25,18 +29,16 @@ module Codeme
 
     def handle(type, handler_class, options = {})
       raise NotImplementedError.new("Handler should implement resolve method") unless handler_class.method_defined?(:resolve)
-      @handlers ||= {}
-      @handlers[type] = [handler_class, options]
+      handlers[type] = [handler_class, options]
     end
 
     def resolve(pkt, env = {})
-      @handlers ||= {}
-      handler, options = @handlers[pkt.type] || @default_handler
+      handler, options = handlers[pkt.type] || @default_handler
       handler.new(pkt.type, options.merge(env)).resolve(pkt.body) if handler
     end
 
     def handle?(type)
-      (@handlers ||= {}).has_key? type
+      handlers.has_key? type
     end
   end
 end
