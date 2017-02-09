@@ -6,6 +6,17 @@ class DummyHandler < Codeme::Handler
   end
 end
 
+1.upto(3) do |i|
+  eval <<-EOS
+class DummyHook#{i} < Codeme::Hook
+  def call(pkt)
+    #{i}
+  end
+end
+  EOS
+
+end
+
 RSpec.describe Codeme::Resolver do
 
   let(:type) { 1 }
@@ -80,23 +91,23 @@ RSpec.describe Codeme::Resolver do
       subject.handle(type, handler_class)
       expect(subject.resolve(packet_obj, resolve_env)).to eq [packet_obj.body, default_env.merge(resolve_env)]
     end
+    
+    let(:hook1){ DummyHook1 }
+    let(:hook2){ DummyHook2 }
+    let(:hook3){ DummyHook3 }
 
     context "when hooks does not stop procedure" do
-      let(:hook1){ proc {|pkt, env| false } }
-      let(:hook2){ proc {|pkt, env| false } }
-      let(:hook3){ proc {|pkt, env| false } }
-
       before do
         subject.hook(hook1)
         subject.hook(hook2)
         subject.hook(hook3)
         subject.handle(type, handler_class)
+        expect_any_instance_of(hook1).to receive(:call).and_return(false)
+        expect_any_instance_of(hook2).to receive(:call).and_return(false)
+        expect_any_instance_of(hook3).to receive(:call).and_return(false)
       end
 
       it "should call all hooks" do
-        expect(hook1).to receive(:call).and_return(false)
-        expect(hook2).to receive(:call).and_return(false)
-        expect(hook3).to receive(:call)
         subject.resolve(packet_obj, resolve_env)
       end
 
@@ -107,20 +118,16 @@ RSpec.describe Codeme::Resolver do
     end
 
     context "when some hook stops the procedure" do
-      let(:hook1){ proc {|pkt, env| false } }
-      let(:hook2){ proc {|pkt, env| true } }
-      let(:hook3){ proc {|pkt, env| false } }
-
       before do
         subject.hook(hook1)
         subject.hook(hook2)
         subject.hook(hook3)
         subject.handle(type, handler_class)
+        expect_any_instance_of(hook1).to receive(:call).and_return(false)
+        expect_any_instance_of(hook2).to receive(:call).and_return(true)
+        expect_any_instance_of(hook3).not_to receive(:call)
       end
       it "only calls hooks before that one" do
-        expect(hook1).to receive(:call).and_return(false)
-        expect(hook2).to receive(:call).and_return(true)
-        expect(hook3).not_to receive(:call)
         subject.resolve(packet_obj, resolve_env)
       end
 

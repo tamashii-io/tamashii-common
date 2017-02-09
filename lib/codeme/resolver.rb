@@ -35,15 +35,15 @@ module Codeme
       handlers[type] = [handler_class, options]
     end
 
-    def hook(callback, env = {})
-      raise NotImplementedError.new("Hook should implement call method") unless callback.respond_to?(:call)
-      hooks << [callback, env]
+    def hook(hook_class, env = {})
+      raise NotImplementedError.new("Hook should implement call method") unless hook_class.method_defined?(:call)
+      hooks << [hook_class, env]
     end
 
     def resolve(pkt, env = {})
       hooks.each do  |hook_data|
-        callback, hook_env = hook_data
-        if callback.call(pkt, hook_env.merge(env))
+        hook_class, hook_env = hook_data
+        if hook_class.new(hook_env.merge(env)).call(pkt)
           # terminates the procedure
           return
         end
