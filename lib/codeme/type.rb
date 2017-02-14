@@ -9,6 +9,8 @@ module Codeme
     # System Action
     POWEROFF = 000
     REBOOT = 001
+    RESTART = 002
+    UPDATE = 003
 
     # Authorization Action
     AUTH_TOKEN = 010
