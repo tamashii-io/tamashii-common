@@ -1,6 +1,6 @@
 require 'logger'
 
-module Codeme
+module Tamashi
   class Logger < ::Logger
     module Colors
       NOTHING      = '0;0'

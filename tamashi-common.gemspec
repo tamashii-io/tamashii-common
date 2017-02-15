@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'codeme/common/version'
+require 'tamashi/common/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "codeme-common"
-  spec.version       = Codeme::Common::VERSION
+  spec.name          = "tamashi-common"
+  spec.version       = Tamashi::Common::VERSION
   spec.authors       = ["蒼時弦也", "Liang-Chi Tseng", "五倍紅寶石"]
   spec.email         = ["elct9620@frost.tw", "lctseng@cs.nctu.edu.tw", "hi@5xruby.tw"]
 

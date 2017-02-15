@@ -1,4 +1,4 @@
-module  Codeme
+module  Tamashi
   class Handler
     attr_reader :type, :env
     def initialize(type, env = {})

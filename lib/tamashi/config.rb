@@ -1,6 +1,6 @@
-require "codeme/environment"
+require "tamashi/environment"
 
-module Codeme
+module Tamashi
   class Config < Hash
     SHARED_CONFIG = %i(auth_type token log_file log_level token env).freeze
 

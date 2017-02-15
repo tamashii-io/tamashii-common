@@ -1,6 +1,6 @@
-require 'codeme/packet'
+require 'tamashi/packet'
 
-module Codeme
+module Tamashi
   class Resolver
 
     class << self

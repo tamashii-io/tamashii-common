@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Codeme::Handler do
+RSpec.describe Tamashi::Handler do
 
   let(:dummy_type) { 1 }
   let(:dummy_env)  { {} }

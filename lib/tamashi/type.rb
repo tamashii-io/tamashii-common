@@ -1,4 +1,4 @@
-module Codeme
+module Tamashi
   module Type
     # Client Type
     CLIENT = {

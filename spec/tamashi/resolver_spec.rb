@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class DummyHandler < Codeme::Handler
+class DummyHandler < Tamashi::Handler
   def resolve(data)
     [data, @env]
   end
@@ -8,7 +8,7 @@ end
 
 1.upto(3) do |i|
   eval <<-EOS
-class DummyHook#{i} < Codeme::Hook
+class DummyHook#{i} < Tamashi::Hook
   def call(pkt)
     #{i}
   end
@@ -17,13 +17,13 @@ end
 
 end
 
-RSpec.describe Codeme::Resolver do
+RSpec.describe Tamashi::Resolver do
 
   let(:type) { 1 }
   let(:tag) { 2 }
   let(:body) { "" }
   let(:handler_class) { DummyHandler }
-  let!(:packet_obj) { Codeme::Packet.new(type, tag, body) }
+  let!(:packet_obj) { Tamashi::Packet.new(type, tag, body) }
   
   let(:default_env) { {} }
   let(:resolve_env) { {resolve: "value"} }

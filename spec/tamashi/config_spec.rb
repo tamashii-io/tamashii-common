@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe Codeme::Config do
+RSpec.describe Tamashi::Config do
 
   it "accept SHARED_CONFIG as config" do
-    expect(subject.accept?(Codeme::Config::SHARED_CONFIG.first)).to be  true
+    expect(subject.accept?(Tamashi::Config::SHARED_CONFIG.first)).to be  true
   end
 
   it "can add new config" do
@@ -43,14 +43,14 @@ RSpec.describe Codeme::Config do
   end
 
   it "support class level instance" do
-    klass = Class.new(Codeme::Config) do
+    klass = Class.new(Tamashi::Config) do
       register :apple, true
     end
     expect(klass.new.accept?(:apple)).to be true
   end
 
   it "support class level accessor" do
-    klass = Class.new(Codeme::Config) do
+    klass = Class.new(Tamashi::Config) do
       register :shared, true
     end
     expect(klass[:shared]).to be true

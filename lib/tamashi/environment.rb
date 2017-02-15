@@ -1,4 +1,4 @@
-module Codeme
+module Tamashi
   class Environment < Hash
 
     RUNTIME_ENV = %w(test development production)

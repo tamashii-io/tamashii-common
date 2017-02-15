@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Codeme::Logger do
+RSpec.describe Tamashi::Logger do
 
   LOGGER_FORMAT = /\[[0-9\-\:\s]+\]\s(INFO|DEBUG|WARN|ERROR|FATAL|UNKNOWN)(\s--\s.+?){,1}\t:(.+?)\n/
 
@@ -56,7 +56,7 @@ RSpec.describe Codeme::Logger do
   end
 
   it "has default schema" do
-    expect(subject.schema).to eq(Codeme::Logger::Colors::SCHEMA[STDOUT])
+    expect(subject.schema).to eq(Tamashi::Logger::Colors::SCHEMA[STDOUT])
   end
 
   describe "#info" do
