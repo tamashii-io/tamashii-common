@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "tamashi-common"
   spec.version       = Tamashi::Common::VERSION
   spec.authors       = ["蒼時弦也", "Liang-Chi Tseng", "五倍紅寶石"]
-  spec.email         = ["elct9620@frost.tw", "lctseng@5xruby.tw", "hi@5xruby.tw"]
+  spec.email         = ["elct9620@frost.tw", "lctseng@cs.nctu.edu.tw", "hi@5xruby.tw"]
 
   spec.summary       = %q{The shared module for RubyConfTW checkin system.}
   spec.description   = %q{The shared module for RubyConfTW checkin system.}
