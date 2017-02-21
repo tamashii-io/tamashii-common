@@ -1,6 +1,6 @@
-require 'tamashi/packet'
+require 'tamashii/packet'
 
-module Tamashi
+module Tamashii
   module RSpec
     module Helpers
       def websocket_mask
@@ -15,19 +15,19 @@ module Tamashi
         output
       end
 
-      def tamashi_packet(type, tag, body)
-        Tamashi::Packet.new(type, tag, body).dump
+      def tamashii_packet(type, tag, body)
+        Tamashii::Packet.new(type, tag, body).dump
       end
 
-      def tamashi_binary_packet(type, tag, body)
+      def tamashii_binary_packet(type, tag, body)
         mask = websocket_mask
-        packet = tamashi_packet(type, tag, body)
+        packet = tamashii_packet(type, tag, body)
         [0x82, 0x80 + packet.size] + mask + websocket_mask_message(mask, *packet)
       end
 
-      def tamashi_text_packet(type, tag, body)
+      def tamashii_text_packet(type, tag, body)
         mask = websocket_mask
-        packet = tamashi_packet(type, tag, body)
+        packet = tamashii_packet(type, tag, body)
         [0x81, 0x80 + packet.size] + mask + websocket_mask_message(mask, *packet)
       end
     end

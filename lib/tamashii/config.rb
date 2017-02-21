@@ -1,6 +1,6 @@
-require "tamashi/environment"
+require "tamashii/environment"
 
-module Tamashi
+module Tamashii
   class Config < Hash
     SHARED_CONFIG = %i(auth_type token log_file log_level token env).freeze
 

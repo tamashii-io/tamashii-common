@@ -1,4 +1,4 @@
-module Tamashi
+module Tamashii
   class Environment < Hash
 
     RUNTIME_ENV = %w(test development production)

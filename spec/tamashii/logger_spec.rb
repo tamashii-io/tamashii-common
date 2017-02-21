@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Tamashi::Logger do
+RSpec.describe Tamashii::Logger do
 
   LOGGER_FORMAT = /\[[0-9\-\:\s]+\]\s(INFO|DEBUG|WARN|ERROR|FATAL|UNKNOWN)(\s--\s.+?){,1}\t:(.+?)\n/
 
@@ -56,7 +56,7 @@ RSpec.describe Tamashi::Logger do
   end
 
   it "has default schema" do
-    expect(subject.schema).to eq(Tamashi::Logger::Colors::SCHEMA[STDOUT])
+    expect(subject.schema).to eq(Tamashii::Logger::Colors::SCHEMA[STDOUT])
   end
 
   describe "#info" do

@@ -1,6 +1,6 @@
-require 'tamashi/packet'
+require 'tamashii/packet'
 
-module Tamashi
+module Tamashii
   class Resolver
 
     class << self

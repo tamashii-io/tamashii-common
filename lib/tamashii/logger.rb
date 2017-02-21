@@ -1,6 +1,6 @@
 require 'logger'
 
-module Tamashi
+module Tamashii
   class Logger < ::Logger
     module Colors
       NOTHING      = '0;0'

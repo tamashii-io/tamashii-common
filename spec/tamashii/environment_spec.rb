@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Tamashi::Environment do
+RSpec.describe Tamashii::Environment do
   let(:env) { nil }
   let(:options) { {extra_key: "extra_value"} }
   subject { described_class.new(env, options) }

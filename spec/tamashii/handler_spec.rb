@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Tamashi::Handler do
+RSpec.describe Tamashii::Handler do
 
   let(:dummy_type) { 1 }
   let(:dummy_env)  { {} }

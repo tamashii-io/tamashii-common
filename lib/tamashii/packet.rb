@@ -1,4 +1,4 @@
-module Tamashi
+module Tamashii
   class Packet
 
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Tamashi::Hook do
+RSpec.describe Tamashii::Hook do
 
   let(:dummy_env)  { {} }
 

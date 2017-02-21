@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Tamashi::Packet do
+RSpec.describe Tamashii::Packet do
 
   let(:type_code) { 1 } 
   let(:action_code) { 2 }
