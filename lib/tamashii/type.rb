@@ -20,9 +20,13 @@ module Tamashii
     RFID_NUMBER = 030
     RFID_DATA = 031
     RFID_RESPONSE_JSON = 036
-    RFID_RESPONSE_STRING = 047
+    RFID_RESPONSE_STRING = 037
 
     # Buzzer Action
     BUZZER_SOUND = 040
+
+    # LCD Action
+    LCD_MESSAGE = 050
+    LCD_SET_IDLE_TEXT = 051
   end
 end
