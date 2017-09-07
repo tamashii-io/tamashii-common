@@ -122,7 +122,7 @@ Tamashii::Type::REBOOT
 
 To get the source code
 
-    $ git clone git@github.com:5xRuby/tamashii-common.git
+    $ git clone git@github.com:tamashii-io/tamashii-common.git
 
 Initialize the development environment
 
