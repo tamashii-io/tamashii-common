@@ -137,7 +137,7 @@ Installation the version of development on localhost
     $ bundle exec rake install
 ## Contribution
 
-Please report to us on [Github](https://github.com/tamashii-io/tamashii-common.) if there is any bug or suggested modified.
+Please report to us on [Github](https://github.com/tamashii-io/tamashii-common) if there is any bug or suggested modified.
 
 The project was developed by [5xruby Inc.](https://5xruby.tw/)
 
