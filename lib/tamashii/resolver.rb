@@ -7,7 +7,7 @@ module Tamashii
       def method_missing(name, *args, &block)
         self.instance.send(name, *args, &block)
       end
-      
+
       def instance
         @instance ||= self.new
       end
@@ -17,6 +17,7 @@ module Tamashii
       @handlers ||= {}
     end
 
+    # TODO: Rename hook to middleware
     def hooks
       @hooks ||= []
     end
